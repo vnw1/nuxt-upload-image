@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply bg-[initial] bg-[linear-gradient(-180deg,#00D775,#00BD68)] shadow-[rgba(0,0,0,0.1)_0_2px_4px] text-white cursor-pointer inline-block h-11 leading-[44px] overflow-hidden pointer-events-auto relative text-center touch-manipulation select-none align-top whitespace-nowrap w-full z-[9] px-5 py-0 rounded-[5px] border-0;
+  font-family: Inter, -apple-system, system-ui, Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  outline: 0;
+  user-select: none;
+}
+.btn:hover {
+  background: #00bd68;
+}
