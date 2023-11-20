@@ -9,6 +9,7 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
+  modules: ['@pinia/nuxt'],
   css: ['~/assets/css/main.css', '~/assets/css/custom.css'],
   vite: {
     resolve: {

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const attrs = useAttrs();
-
 const inputFileRef = ref<HTMLInputElement>();
 
 function labelClick() {
@@ -12,7 +10,6 @@ function labelClick() {
   <div>
     <input
       ref="inputFileRef"
-      v-bind="attrs"
       type="file"
       class="absolute z-[-1] h-[0.1px] w-[0.1px] overflow-hidden opacity-0"
       multiple

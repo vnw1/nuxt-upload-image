@@ -1,40 +1,16 @@
 <script setup lang="ts">
+import { useFileStore } from '@/store/files';
+
 useHead({
   title: 'Page 1',
 });
-
-const fileList = ref<File[]>([]);
-const formKey = ref<number>(0);
-
-function handleChangeFiles(event: { target: { files: FileList } }) {
-  const files = event.target.files;
-
-  if (files.length) {
-    const filesArray = Array.from(files);
-    fileList.value = filesArray;
-  } else {
-    fileList.value = [];
-  }
-}
-
-function handleMoveLeft(index: number) {
-  if (index > 0) {
-    fileList.value = swapElements(fileList.value, index, index - 1);
-    formKey.value += 1;
-  }
-}
-
-function handleMoveRight(index: number) {
-  if (index < fileList.value.length - 1) {
-    fileList.value = swapElements(fileList.value, index, index + 1);
-    formKey.value += 1;
-  }
-}
-
-function handleDelete(index: number) {
-  fileList.value = removeElementByIndex(fileList.value, index);
-  formKey.value += 1;
-}
+const fileStore = useFileStore();
+const { handleChangeFiles } = fileStore;
+const formKey = computed(() => fileStore.formKey);
+const fileList = computed(() => fileStore.fileList);
+const handleExecute = () => {
+  alert('To be continued...');
+};
 </script>
 
 <template>
@@ -44,18 +20,13 @@ function handleDelete(index: number) {
 
     <!-- File List -->
     <div :key="formKey" class="flex flex-1 flex-col gap-4">
-      <FileItemList
-        :files="fileList"
-        @move-left="handleMoveLeft"
-        @move-right="handleMoveRight"
-        @delete="handleDelete"
-      />
+      <FileItemList :files="fileList" />
       <FileInput @change="handleChangeFiles" />
     </div>
 
     <!-- Button -->
     <div class="flex justify-center">
-      <button class="btn max-w-[75%]">Excute</button>
+      <button class="btn max-w-[75%]" @click="handleExecute">Excute</button>
     </div>
   </div>
 </template>

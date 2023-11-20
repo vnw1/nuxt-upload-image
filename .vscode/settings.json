@@ -3,5 +3,6 @@
     "source.fixAll.eslint": true
   },
   "eslint.validate": ["javascript"],
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "volar.inlayHints.eventArgumentInInlineHandlers": false
  }

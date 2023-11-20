@@ -1,8 +1,12 @@
 <script setup lang="ts">
-const props = defineProps(['modelValue']);
-const emits = defineEmits(['move-left', 'move-right', 'delete']);
+import { useFileStore } from '@/store/files';
+
+const props = defineProps(['modelValue', 'index']);
+const fileStore = useFileStore();
+const { handleMoveLeft, handleMoveRight, handleDelete, isFirst, isLast } = fileStore;
 
 const file = props.modelValue;
+const { index } = props;
 
 const src = computed(() => URL.createObjectURL(file));
 const alt = computed(() => file.name);
@@ -32,9 +36,9 @@ function handleMenuOut() {
       role="navigation"
       @mouseleave="handleMenuOut"
     >
-      <li role="button" @click="emits('move-left')">Move {{ '<' }}</li>
-      <li role="button" @click="emits('move-right')">Move {{ '>' }}</li>
-      <li role="button" @click="emits('delete')">Delete</li>
+      <li v-if="!isFirst(index)" role="button" @click="handleMoveLeft(index)">Move {{ '<' }}</li>
+      <li v-if="!isLast(index)" role="button" @click="handleMoveRight(index)">Move {{ '>' }}</li>
+      <li role="button" class="btn-delete" @click="handleDelete(index)">Delete</li>
     </ul>
   </div>
 </template>
@@ -58,7 +62,7 @@ ul.menu-option > li {
   padding: 8px 12px;
 }
 
-ul.menu-option > li:last-child {
+ul.menu-option > li.btn-delete {
   @apply border-b-0 text-red-500;
 }
 
@@ -67,7 +71,7 @@ ul.menu-option > li:hover {
   color: #ffffff;
 }
 
-ul.menu-option > li:last-child:hover {
+ul.menu-option > li.btn-delete:hover {
   @apply bg-red-500;
 }
 </style>
